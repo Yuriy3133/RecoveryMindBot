@@ -1,17 +1,21 @@
-import os
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import Updater, CommandHandler, CallbackContext
+import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("✅ Привет! Твой бот работает без Updater! 🎉")
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text("✅ Привет! Бот работает через Updater!")
 
 def main():
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    print("🤖 Бот запущен...")
-    app.run_polling()
+    updater = Updater(BOT_TOKEN, use_context=True)
+
+    dp = updater.dispatcher
+    dp.add_handler(CommandHandler("start", start))
+
+    print("🤖 Бот запущен через Updater...")
+    updater.start_polling()
+    updater.idle()
 
 if __name__ == "__main__":
     main()
