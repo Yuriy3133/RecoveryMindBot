@@ -5,7 +5,7 @@ import os
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 def start(update: Update, context: CallbackContext):
-    update.message.reply_text("✅ Привет! Бот работает через Updater!")
+    update.message.reply_text("✅ Привет! Бот работает через Updater! 🎉")
 
 def main():
     updater = Updater(BOT_TOKEN, use_context=True)
